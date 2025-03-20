@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Traffic Signal with Timer</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #222;
+            margin: 0;
+        }
+
+        .signal-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            background: black;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .light {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #555;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .red { background-color: red; }
+        .green { background-color: green; }
+        .yellow { background-color: yellow; color: black; }
+    </style>
+</head>
+<body>
+
+    <div class="signal-container">
+        <div class="light" id="redLight">30</div>
+        <div class="light" id="greenLight">30</div>
+        <div class="light" id="yellowLight">5</div>
+    </div>
+
+    <script>
+        let redTime = 30, greenTime = 30, yellowTime = 5;
+        let currentLight = "red";
+        
+        function updateLights() {
+            document.getElementById("redLight").classList.remove("red");
+            document.getElementById("greenLight").classList.remove("green");
+            document.getElementById("yellowLight").classList.remove("yellow");
+
+            if (currentLight === "red") {
+                document.getElementById("redLight").classList.add("red");
+                document.getElementById("redLight").innerText = redTime;
+                redTime--;
+
+                if (redTime < 0) {
+                    currentLight = "green";
+                    redTime = 30;
+                }
+            } 
+            else if (currentLight === "green") {
+                document.getElementById("greenLight").classList.add("green");
+                document.getElementById("greenLight").innerText = greenTime;
+                greenTime--;
+
+                if (greenTime < 0) {
+                    currentLight = "yellow";
+                    greenTime = 30;
+                }
+            } 
+            else if (currentLight === "yellow") {
+                document.getElementById("yellowLight").classList.add("yellow");
+                document.getElementById("yellowLight").innerText = yellowTime;
+                yellowTime--;
+
+                if (yellowTime < 0) {
+                    currentLight = "red";
+                    yellowTime = 5;
+                }
+            }
+        }
+        
+
+        setInterval(updateLights, 1000);
+    </script>
+
+</body>
+</html>
